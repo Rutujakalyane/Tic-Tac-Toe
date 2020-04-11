@@ -4,6 +4,8 @@ echo "Welcome to TicTacToe"
 NUM_OFROWS=3
 NUM_OFCOLUMNS=3
 EMPTY=-1
+SYMBOL_1=x
+SYMBOL_2=0
 
 #variables
 declare -a board
@@ -19,4 +21,18 @@ function resetBoard()
    done
 }
 
+function assigningSymbol(){
+   if [ $(( RANDOM%2 )) -eq 1 ]
+   then
+      PLAYER_SYM=SYMBOL_1
+      COMP_SYM=SYMBOL_2
+   else
+      COMP_SYM=SYMBOL_1
+      PLAYER_SYM=SYMBOL_2
+   fi
+}
+
 resetBoard
+assigningSymbol
+
+
