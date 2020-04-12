@@ -13,7 +13,6 @@ playerCell=''
 playerTurn=''
 
 declare -A board
-
 function resetBoard()
 {  
    i=0
@@ -27,7 +26,6 @@ function resetBoard()
       done
    done
 }
-
 function initializeBoard()
 {  
    local x=0
@@ -41,7 +39,6 @@ function initializeBoard()
       done
    done
 }
-
 function assigningSymbol()
 {
    if [ $(( RANDOM%2 )) -eq 1 ]
@@ -54,7 +51,6 @@ function assigningSymbol()
    fi
    echo "Player's Symbol - $PLAYER_SYM"
 }
-
 function toss()
 {
    if [ $(( RANDOM%2 )) -eq 1 ]
@@ -66,7 +62,6 @@ function toss()
       echo "Computer's turn"
    fi
 }
-
 function displayBoard()
 {
    echo "##### TicTacToe Board #####"
@@ -81,7 +76,6 @@ function displayBoard()
 	 printf "\n"
    done
 }
-
 function inputToBoard()
 {
    rowIndex=''
@@ -144,7 +138,6 @@ function inputToBoard()
    done
    echo "Match Tie"
 }
-
 function checkWinner()
 {  
    symbol=$1
