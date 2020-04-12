@@ -1,37 +1,57 @@
 echo "Welcome to TicTacToe"
-
 #constants
 NUM_OFROWS=3
 NUM_OFCOLUMNS=3
-EMPTY=-1
-SYMBOL_1=x
-SYMBOL_2=0
+EMPTY=0
+PLAYER_SYM=''
+COMP_SYM=''
+LENGTH=$(( $NUM_OFROWS * $NUM_OFCOLUMNS ))
 
 #variables
-declare -a board
+cell=1
+playerCell=''
+
+declare -A board
+declare -A exist
 
 function resetBoard()
-{
+{  
+   local i=0
+   local j=0
+
    for ((i=0; i<NUM_OFROWS; i++))
    do
       for ((j=0; j<NUM_OFCOLUMNS; j++))
       do
-         board[$i,$j]=EMPTY
+         board[$i,$j]=$EMPTY
       done
    done
 }
-
-function assigningSymbol(){
-   if [ $(( RANDOM%2 )) -eq 1 ]
-   then PLAYER_SYM=SYMBOL_1
-      COMP_SYM=SYMBOL_2
-   else
-      COMP_SYM=SYMBOL_1
-      PLAYER_SYM=SYMBOL_2
-   fi
+function initializeBoard()
+{
+   for (( x=0; x<NUM_OFROWS; x++ ))
+   do
+      for (( y=0; y<NUM_OFCOLUMNS; y++ ))
+      do
+         board[$x,$y]=$cell
+         ((cell++))
+      done
+   done
 }
-
-function toss(){
+function assigningSymbol()
+{
+   if [ $(( RANDOM%2 )) -eq 1 ]
+   then
+      PLAYER_SYM=X
+      COMP_SYM=O
+   else
+      COMP_SYM=X
+      PLAYER_SYM=O
+   fi
+   echo "Player's Symbol - $PLAYER_SYM"
+}
+function toss()
+{
    if [ $(( RANDOM%2 )) -eq 1 ]
    then
       echo "Player's turn" 
@@ -39,8 +59,66 @@ function toss(){
       echo "Computer's turn"
    fi
 }
+function displayBoard()
+{
+   local i=0
+   local j=0
+   for (( i=0; i<NUM_OFROWS; i++ ))
+   do
+      for (( j=0; j<NUM_OFCOLUMNS; j++ ))
+      do
+         echo -n "|   ${board[$i,$j]}   |"
+      done
+	 printf "\n\n"
+   done
+}
+function inputToBoard()
+{
+  local rowIndex=''
+  local columnIndex=''
 
-resetBoard
+  for (( i=0; i<$LENGTH; i++))
+  do
+  displayBoard
+  read  -p "Choose one cell for input : " playerCell
+  
+  if [ $playerCell -gt $LENGTH ]
+  then
+     echo "Invalid move, Select valid cell"
+     printf "\n"
+     ((i--))
+  else
+  rowIndex=$(( $playerCell / $NUM_OFROWS ))
+     if [ $(( $playerCell % $NUM_OFROWS )) -eq 0 ]
+     then
+        rowIndex=$(( $rowIndex - 1 ))
+     fi
+ 
+  columnIndex=$(( $playerCell %  $NUM_OFCOLUMNS ))
+     if [ $columnIndex -eq 0 ]
+     then
+        columnIndex=$(( $columnIndex + 2 ))
+     else
+        columnIndex=$(( $columnIndex - 1 ))
+     fi
+
+     if [ "${board[$rowIndex,$columnIndex]}" == "$PLAYER_SYM" ] || [ "${board[$rowIndex,$columnIndex]}" == "$COMP_SYM" ]
+     then
+        echo "Invalid move, Cell already filled"
+        printf "\n"
+        ((i--))
+     fi
+     
+     board[$rowIndex,$columnIndex]=$PLAYER_SYM
+  fi
+  done
+}
+
+#main
+#resetBoard
 assigningSymbol
 toss
-
+echo 
+initializeBoard
+inputToBoard
+displayBoard 
