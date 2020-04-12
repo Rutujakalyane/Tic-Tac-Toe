@@ -1,5 +1,4 @@
 echo "Welcome to TicTacToe"
-
 #constants
 NUM_OFROWS=3
 NUM_OFCOLUMNS=3
@@ -17,8 +16,8 @@ declare -A board
 
 function resetBoard()
 {  
-   local i=0
-   local j=0
+   i=0
+   j=0
 
    for ((i=0; i<NUM_OFROWS; i++))
    do
@@ -67,11 +66,12 @@ function toss()
       echo "Computer's turn"
    fi
 }
+
 function displayBoard()
 {
    echo "##### TicTacToe Board #####"
-   local i=0
-   local j=0
+   i=0
+   j=0
    for (( i=0; i<NUM_OFROWS; i++ ))
    do
       for (( j=0; j<NUM_OFCOLUMNS; j++ ))
@@ -84,8 +84,8 @@ function displayBoard()
 
 function inputToBoard()
 {
-   local rowIndex=''
-   local columnIndex=''
+   rowIndex=''
+   columnIndex=''
 
    for (( i=0; i<$LENGTH; i++))
    do
@@ -144,6 +144,7 @@ function inputToBoard()
    done
    echo "Match Tie"
 }
+
 function checkWinner()
 {  
    symbol=$1
@@ -176,10 +177,11 @@ function checkWinner()
       echo 0
    fi
 }
+
 function  computerTurn(){
 #Rows---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-   local row=0
-   local col=0
+   row=0
+   col=0
    for ((row=0; row<NUM_OFROWS; row++))
    do 
       if [ ${board[$row,$col]} == $PLAYER_SYM ] && [ ${board[$(($row)),$(($col+1))]} == $PLAYER_SYM ]
@@ -205,10 +207,10 @@ function  computerTurn(){
           fi
       fi
    done
-   #Columns-------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-   local row=0
-   local col=0
+#Columns-------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+   row=0
+   col=0
    for ((col=0; col<NUM_OFCOLUMNS; col++))
    do
       if [ ${board[$row,$col]} == $PLAYER_SYM ] &&  [ ${board[$(($row+1)),$col]} == $PLAYER_SYM ]
@@ -237,9 +239,9 @@ function  computerTurn(){
 
 #Diagonal------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 
-      local row=0
-      local col=0
-      local valid=''
+      row=0
+      col=0
+      valid=''
 
       if [ ${board[$row,$col]} == $PLAYER_SYM ] &&  [ ${board[$(($row+1)),$(($col+1))]} == $PLAYER_SYM ]
       then
@@ -282,12 +284,12 @@ function  computerTurn(){
          then
             board[$(($row+1)),$(($col+1))]=$COMP_SYM
             return
-	    fi
+          fi
       else
          while [ true ]
          do
-            local row=$(( RANDOM % $NUM_OFROWS ))
-            local col=$(( RANDOM % $NUM_OFCOLUMNS ))
+            row=$(( RANDOM % $NUM_OFROWS ))
+            col=$(( RANDOM % $NUM_OFCOLUMNS ))
 
             if [ ${board[$row,$col]} == $PLAYER_SYM ] || [ ${board[$row,$col]} == $COMP_SYM ]
             then
@@ -306,4 +308,3 @@ toss
 initializeBoard
 inputToBoard
 displayBoard
-          
