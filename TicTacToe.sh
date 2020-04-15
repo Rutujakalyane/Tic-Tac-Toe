@@ -31,8 +31,8 @@ function resetBoard()
 
 function initializeBoard()
 {  
-   x=0
-   y=0
+   local x=0
+   local y=0
    for (( x=0; x<NUM_OFROWS; x++ ))
    do
       for (( y=0; y<NUM_OFCOLUMNS; y++ ))
@@ -85,8 +85,8 @@ function displayBoard()
 
 function inputToBoard()
 {
-   rowIndex=''
-   columnIndex=''
+   local rowIndex=''
+   local columnIndex=''
 
    for (( i=0; i<$LENGTH; i++))
    do
@@ -132,7 +132,7 @@ function inputToBoard()
                   fi
                fi
             fi
-      else
+	    else
          echo "#### Computer's Turn ######"
          checkForCompWin
          computerTurn
@@ -184,8 +184,8 @@ function  computerTurn()
 {
 #Rows--------------------------------------------------------------------------------------------------------------------------------------------->
 
-   row=0
-   col=0
+   local row=0
+   local col=0
    for ((row=0; row<NUM_OFROWS; row++))
    do
       if [ ${board[$row,$col]} == $PLAYER_SYM ] && [ ${board[$(($row)),$(($col+1))]} == $PLAYER_SYM ]
@@ -244,9 +244,10 @@ function  computerTurn()
 
 #Diagonal----------------------------------------------------------------------------------------------------------------------------------------->
 
-      row=0
-      col=0
-      valid=''
+      local row=0
+      local col=0
+      local valid=''
+
       if [ ${board[$row,$col]} == $PLAYER_SYM ] &&  [ ${board[$(($row+1)),$(($col+1))]} == $PLAYER_SYM ]
       then
          if [ ${board[$(($row+2)),$(($col+2))]} != $COMP_SYM ]
@@ -310,8 +311,8 @@ function checkForCompWin()
 {
 #Rows---------------------------------------------------------------------------------------------------------------------------------------------->
 
-   row=0
-   col=0
+   local row=0
+   local col=0
    for ((row=0; row<NUM_OFROWS; row++))
    do
       if [ ${board[$row,$col]} == $COMP_SYM ] && [ ${board[$(($row)),$(($col+1))]} == $COMP_SYM ]
@@ -340,8 +341,8 @@ function checkForCompWin()
 
 #Columns------------------------------------------------------------------------------------------------------------------------------------------->
 
-   row=0
-   col=0
+   local row=0
+   local col=0
    for ((col=0; col<NUM_OFCOLUMNS; col++))
    do
       if [ ${board[$row,$col]} == $COMP_SYM ] &&  [ ${board[$(($row+1)),$col]} == $COMP_SYM ]
@@ -369,10 +370,9 @@ function checkForCompWin()
    done
 
 #Diagonal------------------------------------------------------------------------------------------------------------------------------------------>
-
-      row=0
-      col=0
-      valid=''
+      local row=0
+      local col=0
+      local valid=''
 
       if [ ${board[$row,$col]} == $COMP_SYM ] &&  [ ${board[$(($row+1)),$(($col+1))]} == $COMP_SYM ]
       then
@@ -418,9 +418,7 @@ function checkForCompWin()
           fi
       else
          return
-      fi
-#------------------------------------------------------------------------------------------------------------------------------------------------>
-}
+      }
 #main
 #resetBoard
 assigningSymbol
@@ -428,4 +426,3 @@ toss
 initializeBoard
 inputToBoard
 displayBoard
-
