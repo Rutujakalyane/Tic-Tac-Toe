@@ -1,5 +1,4 @@
 echo "Welcome to TicTacToe"
-
 #constants
 NUM_OFROWS=3
 NUM_OFCOLUMNS=3
@@ -12,9 +11,7 @@ LENGTH=$(( $NUM_OFROWS * $NUM_OFCOLUMNS ))
 cell=1
 playerCell=''
 playerTurn=''
-
 declare -A board
-
 function resetBoard()
 {  
    local i=0
@@ -28,7 +25,6 @@ function resetBoard()
       done
    done
 }
-
 function initializeBoard()
 {  
    local x=0
@@ -42,7 +38,6 @@ function initializeBoard()
       done
    done
 }
-
 function assigningSymbol()
 {
    if [ $(( RANDOM%2 )) -eq 1 ]
@@ -132,7 +127,7 @@ function inputToBoard()
                   fi
                fi
             fi
-	    else
+      else
          echo "#### Computer's Turn ######"
          checkForCompWin
          computerTurn
@@ -291,6 +286,10 @@ function  computerTurn()
             return
           fi
       else
+         if [ true ]
+         then
+            checkCorners
+         else
          while [ true ]
          do
             local row=$(( RANDOM % $NUM_OFROWS ))
@@ -304,6 +303,7 @@ function  computerTurn()
                break
             fi
          done
+         fi
       fi
 }
 
@@ -370,6 +370,7 @@ function checkForCompWin()
    done
 
 #Diagonal------------------------------------------------------------------------------------------------------------------------------------------>
+
       local row=0
       local col=0
       local valid=''
@@ -418,8 +419,34 @@ function checkForCompWin()
           fi
       else
          return
-      }
+      fi
+#------------------------------------------------------------------------------------------------------------------------------------------------>
+}
+
+function checkCorners()
+{
+      if [ ${board[0,0]} != $PLAYER_SYM ] && [ ${board[0,0]} != $COMP_SYM ]
+      then
+         board[0,0]=$COMP_SYM
+         return
+      elif [ ${board[0,2]} != $PLAYER_SYM ] && [ ${board[0,2]} != $COMP_SYM ]
+      then
+         board[0,2]=$COMP_SYM
+         return
+      elif [ ${board[2,0]} != $PLAYER_SYM ] && [ ${board[2,0]} != $COMP_SYM ]
+      then
+         board[2,0]=$COMP_SYM
+         return
+      elif [ ${board[2,2]} != $PLAYER_SYM ] && [ ${board[2,2]} != $COMP_SYM ]
+      then
+         board[2,2]=$COMP_SYM
+         return
+      fi
+}
+
+
 #main
+
 #resetBoard
 assigningSymbol
 toss
