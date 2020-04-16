@@ -1,19 +1,4 @@
-Skip to content
- princesingh00 / TicTacToe
-Code Issues 0 Pull requests 0 Projects 0 Actions Wiki Security Pulse Community
-TicTacToe/TicTacToe.sh
-@princesingh00 princesingh00 Refactor: Change few functions
-9685d53 on Nov 23, 2019
-Executable File  473 lines (435 sloc)  13.5 KB
-  
-#!/bin/bash -x
-
-#Author-Prince Singh
-#Date-20 Nov 2019
-#Purpose-Use case 10 [ Checking center cell for computer ]
-
 echo "Welcome to TicTacToe"
-
 #constants
 NUM_OFROWS=3
 NUM_OFCOLUMNS=3
@@ -29,9 +14,7 @@ playerTurn=''
 isCenterAvailable=''
 isCornerAvailable=''
 cellBlocked=''
-
 declare -A board
-
 function resetBoard()
 {  
    local i=0
